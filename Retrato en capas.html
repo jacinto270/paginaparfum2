@@ -1,0 +1,377 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Noa Juarez — retrato en capas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: escenario grande a la izquierda, panel de control a la derecha; abajo, el "cómo funciona". Estética de impresión risograph. */
+:root {
+  --paper: #e3edf0;
+  --panel: #f4f9fa;
+  --fg: #1d2a44;
+  --muted: #56647c;
+  --rule: #c3d3d8;
+  --accent: #e2604f;
+  --accent-ink: #ffffff;
+  /* colores del dibujo: iguales en ambos temas */
+  --line: #1d2a44;
+  --skin: #f6c9a8;
+  --coral: #ef6f5e;
+  --sun: #f2c14e;
+  --teal: #3c8d93;
+  --white: #fffdf8;
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #131b29; --panel: #1a2436; --fg: #e6edf4; --muted: #9aa8bd;
+    --rule: #2c3a52; --accent: #f27a69; --accent-ink: #131b29; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #131b29; --panel: #1a2436; --fg: #e6edf4; --muted: #9aa8bd;
+  --rule: #2c3a52; --accent: #f27a69; --accent-ink: #131b29; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--fg);
+  font-family: var(--body); font-size: 16px; line-height: 1.55;
+  padding: 28px 20px 56px;
+}
+.wrap { max-width: 1060px; margin: 0 auto; display: grid; gap: 40px; }
+
+header { display: grid; gap: 6px; max-width: 62ch; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 6vw, 56px); line-height: 1; margin: 0; letter-spacing: -.02em; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+header p { margin: 6px 0 0; color: var(--muted); }
+
+.demo { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 760px) { .demo { grid-template-columns: 1fr; } }
+
+/* ---------- escenario ---------- */
+.stage-box { display: grid; gap: 10px; min-width: 0; }
+.stage {
+  --x: 0; --y: 0; --amp: 1; --explode: 0;
+  position: relative; width: 100%; max-width: 480px; aspect-ratio: 400 / 440;
+  margin: 0 auto; perspective: 1400px; touch-action: pan-y;
+}
+.head, .scene { position: absolute; inset: 0; transform-style: preserve-3d; }
+.scene {
+  transform: rotateY(calc(var(--explode) * -38deg)) rotateX(calc(var(--explode) * 12deg)) scale(calc(1 - var(--explode) * .12));
+  transition: transform .7s cubic-bezier(.3,.7,.2,1);
+}
+.head { transform: rotate(calc(var(--x) * 3deg)); transform-origin: 50% 70%; }
+.layer {
+  position: absolute; inset: 0;
+  transform: translate3d(
+    calc(var(--x) * var(--dx) * var(--amp) * 1px),
+    calc(var(--y) * var(--dy) * var(--amp) * 1px),
+    calc(var(--explode) * var(--z) * 34px));
+  transition: opacity .25s, filter .25s;
+  will-change: transform;
+}
+.layer svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.stage[data-focus] .layer { opacity: .12; }
+.stage[data-focus] .layer.is-focus { opacity: 1; filter: drop-shadow(0 0 6px var(--accent)); }
+.stage.exploded .layer svg { filter: drop-shadow(0 6px 10px rgba(20,30,50,.18)); }
+
+.blink svg { transform-origin: 50% 50.5%; animation: blink 5.5s infinite; }
+@keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.08); } }
+
+.hint { text-align: center; font-size: 14px; color: var(--muted); margin: 0; }
+
+/* ---------- panel ---------- */
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 20px; display: grid; gap: 22px; min-width: 0; }
+.panel h2 { font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 10px; }
+
+.readout { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.val { border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; display: grid; gap: 6px; }
+.val span { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.val output { font-family: var(--mono); font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.meter { height: 6px; background: var(--rule); border-radius: 3px; position: relative; overflow: hidden; }
+.meter i { position: absolute; top: 0; bottom: 0; left: 50%; width: 0; background: var(--accent); }
+
+.controls { display: grid; gap: 14px; }
+.ctrl { display: grid; gap: 4px; }
+.ctrl label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; }
+.ctrl label b { font-family: var(--mono); font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.toggle {
+  font: inherit; font-weight: 700; font-size: 15px; cursor: pointer;
+  border: 2px solid var(--fg); background: transparent; color: var(--fg);
+  border-radius: 999px; padding: 9px 18px; justify-self: start;
+}
+.toggle[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+button:focus-visible, input:focus-visible, li:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.layers { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.layers li {
+  display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+  padding: 6px 8px; border-radius: 8px; font-size: 14px; cursor: default;
+}
+.layers li:hover, .layers li:focus-visible { background: var(--paper); }
+.layers li code { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.layers .note { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+
+/* ---------- explicación ---------- */
+.how { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; border-top: 2px solid var(--fg); padding-top: 28px; }
+@media (max-width: 760px) { .how { grid-template-columns: 1fr; } }
+.how h2 { font-family: var(--display); font-weight: 800; font-size: 28px; margin: 0 0 14px; letter-spacing: -.01em; }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 14px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 8px; max-width: 60ch; }
+.steps li::before { content: counter(s); font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--accent); line-height: 1.2; }
+.steps code, .how p code { font-family: var(--mono); font-size: 13.5px; }
+pre {
+  margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 12px;
+  padding: 16px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6;
+}
+pre .c { color: var(--muted); }
+.how .codecol { display: grid; gap: 10px; min-width: 0; align-content: start; }
+.how .codecol p { margin: 0; font-size: 14px; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Demo · HTML, CSS y JS nativo · 0 dependencias</span>
+    <h1>Noa Juarez, <em>en capas</em></h1>
+    <p>Retrato ilustrado de Noa a los 9 años: pelo moreno rizado y ojos marrones. Mueve el ratón (o el dedo) por la página; cada parte del dibujo se desplaza según su profundidad.</p>
+  </header>
+
+  <section class="demo">
+    <div class="stage-box">
+      <div class="stage" id="stage" aria-label="Retrato ilustrado de una niña de nueve años, de cabello moreno rizado y ojos marrones, que gira hacia el puntero" role="img">
+        <div class="scene">
+          <div class="layer" data-layer="Fondo" style="--dx:-10;--dy:-6;--z:0">
+            <svg viewBox="0 0 400 440" aria-hidden="true">
+              <defs>
+                <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+                  <circle cx="3" cy="3" r="2" fill="#82906f"/>
+                </pattern>
+              </defs>
+              <circle cx="200" cy="215" r="172" fill="#eadcc7"/>
+              <circle cx="200" cy="215" r="172" fill="url(#dots)" opacity=".55"/>
+              <path d="M63 343q18-36 35-7m214 7q18-36 35-7" fill="none" stroke="#82906f" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="93" cy="331" r="7" fill="#d88d89"/>
+              <circle cx="309" cy="331" r="7" fill="#d88d89"/>
+            </svg>
+          </div>
+          <div class="layer" data-layer="Cuerpo" style="--dx:3;--dy:1;--z:1">
+            <svg viewBox="0 0 400 440" aria-hidden="true">
+              <rect x="177" y="300" width="46" height="66" rx="18" fill="var(--skin)" stroke="var(--line)" stroke-width="4"/>
+              <path d="M68 446 C80 371 137 348 200 348 C263 348 320 371 332 446 Z" fill="#846f63" transform="translate(5 5)"/>
+              <path d="M68 446 C80 371 137 348 200 348 C263 348 320 371 332 446 Z" fill="#f3eee3" stroke="var(--line)" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M171 351 Q200 378 229 351" fill="none" stroke="#c7bca9" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="head">
+            <div class="layer" data-layer="Rizos de fondo" style="--dx:-7;--dy:2;--z:2">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <path d="M108 228 C84 167 99 105 148 88 C164 50 220 43 249 69 C301 68 324 113 309 151 C326 205 311 274 285 314 L110 313 C90 291 88 252 108 228Z" fill="#382b26" stroke="var(--line)" stroke-width="4"/>
+                <path d="M139 150c-12-9-8-28 6-31 14-3 24 12 15 22m39-49c-9-12-1-29 13-28 14 1 20 18 9 26m42-2c-3-15 11-26 23-19 12 7 9 24-4 29m37 33c8-13 26-11 30 3 4 14-11 24-23 17" fill="none" stroke="#69493b" stroke-width="8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="layer" data-layer="Orejas" style="--dx:-9;--dy:3;--z:2">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <ellipse cx="111" cy="239" rx="19" ry="25" fill="var(--skin)" stroke="var(--line)" stroke-width="4"/>
+                <ellipse cx="289" cy="239" rx="19" ry="25" fill="var(--skin)" stroke="var(--line)" stroke-width="4"/>
+                <path d="M112 230q-7 9 1 18m175-18q7 9-1 18" fill="none" stroke="#a96d57" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="layer" data-layer="Cara" style="--dx:13;--dy:8;--z:3">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <ellipse cx="204" cy="238" rx="91" ry="108" fill="#dfa987"/>
+                <ellipse cx="200" cy="233" rx="91" ry="108" fill="var(--skin)" stroke="var(--line)" stroke-width="4"/>
+              </svg>
+            </div>
+            <div class="layer" data-layer="Boca y mejillas" style="--dx:22;--dy:14;--z:4">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <ellipse cx="148" cy="270" rx="15" ry="9" fill="#df8b84" opacity=".55"/>
+                <ellipse cx="252" cy="270" rx="15" ry="9" fill="#df8b84" opacity=".55"/>
+                <path d="M182 294 Q200 308 218 294" fill="none" stroke="#8e554d" stroke-width="4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="layer blink" data-layer="Ojos" style="--dx:22;--dy:14;--z:5">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <ellipse cx="164" cy="226" rx="18" ry="13" fill="var(--white)" stroke="var(--line)" stroke-width="3"/>
+                <ellipse cx="236" cy="226" rx="18" ry="13" fill="var(--white)" stroke="var(--line)" stroke-width="3"/>
+              </svg>
+            </div>
+            <div class="layer blink" data-layer="Pupilas" style="--dx:29;--dy:19;--z:6">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <ellipse cx="164" cy="226" rx="8" ry="10" fill="#593b2c"/>
+                <ellipse cx="236" cy="226" rx="8" ry="10" fill="#593b2c"/>
+                <circle cx="166" cy="223" r="2.5" fill="var(--white)"/>
+                <circle cx="238" cy="223" r="2.5" fill="var(--white)"/>
+              </svg>
+            </div>
+            <div class="layer" data-layer="Cejas" style="--dx:24;--dy:22;--z:7">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <path d="M146 202 Q164 193 181 202 M219 202 Q236 193 254 202" fill="none" stroke="#49332d" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="layer" data-layer="Nariz" style="--dx:31;--dy:18;--z:8">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <path d="M201 235 C194 253 192 265 205 267" fill="none" stroke="#a96d57" stroke-width="3.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="layer" data-layer="Rizos delanteros" style="--dx:16;--dy:10;--z:10">
+              <svg viewBox="0 0 400 440" aria-hidden="true">
+                <path d="M110 211 C88 181 100 146 128 141 C111 110 137 82 166 96 C175 64 211 57 229 84 C255 62 287 81 280 111 C311 112 320 147 294 166 C313 190 298 220 273 224 C259 199 247 180 230 170 C212 194 185 202 160 186 C148 208 129 220 110 211Z" fill="#382b26" stroke="var(--line)" stroke-width="4" stroke-linejoin="round"/>
+                <path d="M142 170c-11-7-7-22 5-24 12-2 19 11 11 19m44-35c-8-10-1-23 11-22 11 1 16 15 7 21m39-1c-3-12 9-21 19-15 10 6 7 19-4 23m34 25c7-10 20-8 23 3 3 11-9 19-18 13" fill="none" stroke="#69493b" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="hint" id="hint">Pasa el puntero por la página para que gire la cabeza.</p>
+    </div>
+
+    <aside class="panel">
+      <div>
+        <h2>Puntero normalizado</h2>
+        <div class="readout">
+          <div class="val"><span>--x (izq. −1 · dcha. 1)</span><output id="ox">0.00</output><div class="meter"><i id="mx"></i></div></div>
+          <div class="val"><span>--y (arriba −1 · abajo 1)</span><output id="oy">0.00</output><div class="meter"><i id="my"></i></div></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <h2>Ajustes</h2>
+        <div class="ctrl">
+          <label for="ease">Suavizado <b id="easeV">0.12</b></label>
+          <input id="ease" type="range" min="0.03" max="1" step="0.01" value="0.12">
+        </div>
+        <div class="ctrl">
+          <label for="amp">Amplitud del movimiento <b id="ampV">1.00×</b></label>
+          <input id="amp" type="range" min="0" max="1.6" step="0.05" value="1">
+        </div>
+        <button class="toggle" id="explode" type="button" aria-pressed="false">Separar capas en 3D</button>
+      </div>
+
+      <div>
+        <h2>Capas (de atrás a delante)</h2>
+        <ul class="layers" id="layerList"></ul>
+        <p class="note">Pasa el puntero por una capa de la lista para aislarla. Los números son los píxeles máximos que se desplaza en X y en Y.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="how">
+    <div>
+      <h2>Cómo funciona</h2>
+      <ol class="steps">
+        <li><span>El retrato de Noa se divide en 11 capas SVG del mismo tamaño (<code>viewBox</code> idéntico) apiladas con <code>position: absolute</code>.</span></li>
+        <li><span>Cada capa es un <code>div</code>, no un grupo dentro de un único SVG: así el navegador las mueve con <code>transform</code>, que va por GPU y no obliga a redibujar el SVG.</span></li>
+        <li><span>JavaScript convierte la posición del puntero en dos números entre −1 y 1 respecto al centro del retrato y los guarda como variables CSS <code>--x</code> y <code>--y</code>.</span></li>
+        <li><span>Cada capa multiplica esos valores por su propia profundidad (<code>--dx</code>, <code>--dy</code>). Los rizos delanteros y la nariz se mueven más que el fondo. Esa diferencia crea el efecto 3D.</span></li>
+        <li><span>Un bucle con <code>requestAnimationFrame</code> acerca poco a poco el valor actual al del puntero (interpolación lineal), lo que da la sensación de inercia.</span></li>
+      </ol>
+    </div>
+    <div class="codecol">
+      <pre><code><span class="c">/* CSS: una regla sirve para todas las capas */</span>
+.layer {
+  transform: translate(
+    calc(var(--x) * var(--dx) * 1px),
+    calc(var(--y) * var(--dy) * 1px));
+}
+
+<span class="c">// JS: puntero → objetivo entre -1 y 1</span>
+addEventListener('pointermove', e => {
+  const r = stage.getBoundingClientRect();
+  tx = clamp((e.clientX - (r.left + r.width / 2)) / (innerWidth / 2));
+  ty = clamp((e.clientY - (r.top + r.height / 2)) / (innerHeight / 2));
+});
+
+<span class="c">// Bucle: acercarse un 12 % cada fotograma</span>
+(function loop() {
+  x += (tx - x) * 0.12;
+  y += (ty - y) * 0.12;
+  stage.style.setProperty('--x', x);
+  stage.style.setProperty('--y', y);
+  requestAnimationFrame(loop);
+})();</code></pre>
+      <p>Si el sistema pide reducir el movimiento, la demo baja la amplitud y quita el parpadeo.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const stage = document.getElementById('stage');
+  const layers = [...stage.querySelectorAll('.layer')];
+  const $ = id => document.getElementById(id);
+  const clamp = v => Math.max(-1, Math.min(1, v));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let tx = 0, ty = 0, x = 0, y = 0;
+  let ease = 0.12;
+
+  if (reduce) {
+    $('amp').value = 0.4;
+    layers.forEach(l => l.classList.remove('blink'));
+  }
+
+  // Lista de capas generada a partir del propio HTML
+  const list = $('layerList');
+  layers.forEach(l => {
+    const li = document.createElement('li');
+    li.tabIndex = 0;
+    const cs = l.style;
+    li.innerHTML = `<span>${l.dataset.layer}</span><code>x ${cs.getPropertyValue('--dx').trim()} · y ${cs.getPropertyValue('--dy').trim()}</code>`;
+    const on = () => { stage.dataset.focus = l.dataset.layer; l.classList.add('is-focus'); };
+    const off = () => { delete stage.dataset.focus; l.classList.remove('is-focus'); };
+    li.addEventListener('pointerenter', on); li.addEventListener('pointerleave', off);
+    li.addEventListener('focus', on); li.addEventListener('blur', off);
+    list.appendChild(li);
+  });
+
+  // Puntero → objetivo normalizado
+  const aim = (cx, cy) => {
+    const r = stage.getBoundingClientRect();
+    tx = clamp((cx - (r.left + r.width / 2)) / (innerWidth / 2));
+    ty = clamp((cy - (r.top + r.height / 2)) / (innerHeight / 2));
+    $('hint').textContent = 'Si sacas el puntero de la página, vuelve a mirar al frente.';
+  };
+  addEventListener('pointermove', e => aim(e.clientX, e.clientY), { passive: true });
+  addEventListener('pointerdown', e => aim(e.clientX, e.clientY), { passive: true });
+  document.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+  document.documentElement.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
+  addEventListener('blur', () => { tx = 0; ty = 0; });
+
+  // Controles
+  const setEase = () => { ease = +$('ease').value; $('easeV').textContent = ease.toFixed(2); };
+  const setAmp = () => { stage.style.setProperty('--amp', $('amp').value); $('ampV').textContent = (+$('amp').value).toFixed(2) + '×'; };
+  $('ease').addEventListener('input', setEase);
+  $('amp').addEventListener('input', setAmp);
+  setEase(); setAmp();
+
+  $('explode').addEventListener('click', e => {
+    const onState = e.currentTarget.getAttribute('aria-pressed') !== 'true';
+    e.currentTarget.setAttribute('aria-pressed', onState);
+    e.currentTarget.textContent = onState ? 'Volver a juntar capas' : 'Separar capas en 3D';
+    stage.style.setProperty('--explode', onState ? 1 : 0);
+    stage.classList.toggle('exploded', onState);
+  });
+
+  // Bucle de interpolación
+  const ox = $('ox'), oy = $('oy'), mx = $('mx'), my = $('my');
+  const bar = (el, v) => {
+    el.style.left = (v < 0 ? 50 + v * 50 : 50) + '%';
+    el.style.width = Math.abs(v) * 50 + '%';
+  };
+  (function loop() {
+    x += (tx - x) * ease;
+    y += (ty - y) * ease;
+    stage.style.setProperty('--x', x.toFixed(4));
+    stage.style.setProperty('--y', y.toFixed(4));
+    ox.textContent = (x >= 0 ? ' ' : '') + x.toFixed(2);
+    oy.textContent = (y >= 0 ? ' ' : '') + y.toFixed(2);
+    bar(mx, x); bar(my, y);
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+
+</body></html>

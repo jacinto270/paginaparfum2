@@ -3,38 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descubre la colección de perfumes Noa.">
-    <title>Perfumes Noa</title>
+    <meta name="theme-color" content="#f6f2eb">
+    <meta name="description" content="NOA Parfums: perfumería de autor, creada en España para acompañar momentos inolvidables.">
+    <title>NOA Parfums — El arte de permanecer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <header class="encabezado">
-        <p class="marca">NOA</p>
-        <h1>Perfumes para cada momento</h1>
-        <p class="intro">Encuentra tu próxima esencia favorita.</p>
-       
+    <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
+    <header class="barra-superior">
+        <a class="logotipo" href="#inicio" aria-label="NOA Parfums, inicio">NOA<span>PARFUMS</span></a>
+        <nav class="navegacion" aria-label="Navegación principal">
+            <a href="#coleccion">Colección</a>
+            <a href="#noa">La perfumista</a>
+            <a href="#reserva">Reserva</a>
+        </nav>
+        <div class="acciones-cabecera">
+            <button class="boton-sonido" id="toggle-sonido" type="button" aria-pressed="false">
+                <span class="punto-sonido" aria-hidden="true"></span>
+                <span id="texto-sonido">Activar ambiente</span>
+            </button>
+            <button class="boton-carrito" id="toggle-cart" type="button" aria-label="Abrir cesta, 0 artículos" aria-controls="cart" aria-expanded="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16l-1.5 12h-13L4 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+                <span class="contador" id="contador">0</span>
+            </button>
+        </div>
     </header>
 
-    <main class="catalogo" aria-label="Catálogo de perfumes">
-        <div class="container">
+    <main id="contenido">
+        <section class="hero" id="inicio" aria-labelledby="titulo-principal">
+            <div class="hero-contenido">
+                <p class="ceja">Alta perfumería · Hecho en España</p>
+                <h1 id="titulo-principal">El arte de<br><em>permanecer.</em></h1>
+                <p class="hero-texto">Fragancias de autor que convierten lo cotidiano en un recuerdo extraordinario.</p>
+                <a class="boton boton-claro" href="#coleccion">Descubrir la colección <span aria-hidden="true">↗</span></a>
+            </div>
+            <a class="hero-nota" href="#noa"><span>Una mirada, una historia</span><span aria-hidden="true">↓</span></a>
+            <div class="hero-indicador" aria-hidden="true"><span></span> MADRID · 40°25' N</div>
+        </section>
 
-            <button id="toggle-cart">
-                <span id="contador"></span>🛒</button>
-           
-            
-            <div id="products" class=""></div>
-        </div>
-       
-        <div  id="cart">
-            <h2>Carrito</h2>
-        <div id="cart-items"></div>
-        <div id="cart-total">total: 0.00€</div>
-        </div>
+        <section class="introduccion seccion" aria-labelledby="titulo-intro">
+            <p class="ceja ceja-oscura">La belleza de lo irrepetible</p>
+            <h2 id="titulo-intro">No se lleva. <em>Se deja en el aire.</em></h2>
+            <p>Cada creación NOA nace de materias nobles, paisajes vividos y una forma pausada de entender el lujo. Piezas olfativas concebidas para encontrarte, no para parecerte a nadie.</p>
+        </section>
+
+        <section class="coleccion seccion" id="coleccion" aria-labelledby="titulo-coleccion">
+            <div class="encabezado-seccion">
+                <div>
+                    <p class="ceja ceja-oscura">Diez formas de sentir</p>
+                    <h2 id="titulo-coleccion">La colección <em>NOA</em></h2>
+                </div>
+                <p>Extractos de autor · Concentración 22%</p>
+            </div>
+            <div id="products" class="catalogo" aria-live="polite"></div>
+        </section>
+
+        <section class="historia" id="noa" aria-labelledby="titulo-noa">
+            <div class="historia-imagen">
+                <div class="retrato-noa" id="retrato-noa" role="img" aria-label="Ilustración en capas de Noa Juarez a los nueve años, con cabello moreno rizado y ojos marrones">
+                    <div class="retrato-escena">
+                        <div class="retrato-capa" style="--dx:-10;--dy:-6;--z:0">
+                            <svg viewBox="0 0 400 440" aria-hidden="true">
+                                <defs>
+                                    <pattern id="retrato-puntos" width="12" height="12" patternUnits="userSpaceOnUse">
+                                        <circle cx="3" cy="3" r="2" fill="#82906f"/>
+                                    </pattern>
+                                </defs>
+                                <circle cx="200" cy="215" r="172" fill="#eadcc7"/>
+                                <circle cx="200" cy="215" r="172" fill="url(#retrato-puntos)" opacity=".55"/>
+                                <path d="M63 343q18-36 35-7m214 7q18-36 35-7" fill="none" stroke="#82906f" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="93" cy="331" r="7" fill="#d88d89"/>
+                                <circle cx="309" cy="331" r="7" fill="#d88d89"/>
+                            </svg>
+                        </div>
+                        <div class="retrato-capa" style="--dx:3;--dy:1;--z:1">
+                            <svg viewBox="0 0 400 440" aria-hidden="true">
+                                <rect x="177" y="300" width="46" height="66" rx="18" fill="#d49b7d" stroke="#49382f" stroke-width="4"/>
+                                <path d="M68 446 C80 371 137 348 200 348 C263 348 320 371 332 446 Z" fill="#846f63" transform="translate(5 5)"/>
+                                <path d="M68 446 C80 371 137 348 200 348 C263 348 320 371 332 446 Z" fill="#f3eee3" stroke="#49382f" stroke-width="4" stroke-linejoin="round"/>
+                                <path d="M171 351 Q200 378 229 351" fill="none" stroke="#c7bca9" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="retrato-cabeza">
+                            <div class="retrato-capa" style="--dx:-7;--dy:2;--z:2">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <path d="M108 228 C84 167 99 105 148 88 C164 50 220 43 249 69 C301 68 324 113 309 151 C326 205 311 274 285 314 L110 313 C90 291 88 252 108 228Z" fill="#382b26" stroke="#49382f" stroke-width="4"/>
+                                    <path d="M139 150c-12-9-8-28 6-31 14-3 24 12 15 22m39-49c-9-12-1-29 13-28 14 1 20 18 9 26m42-2c-3-15 11-26 23-19 12 7 9 24-4 29m37 33c8-13 26-11 30 3 4 14-11 24-23 17" fill="none" stroke="#69493b" stroke-width="8" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa" style="--dx:-9;--dy:3;--z:2">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <ellipse cx="111" cy="239" rx="19" ry="25" fill="#d49b7d" stroke="#49382f" stroke-width="4"/>
+                                    <ellipse cx="289" cy="239" rx="19" ry="25" fill="#d49b7d" stroke="#49382f" stroke-width="4"/>
+                                    <path d="M112 230q-7 9 1 18m175-18q7 9-1 18" fill="none" stroke="#a96d57" stroke-width="3" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa" style="--dx:13;--dy:8;--z:3">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <ellipse cx="204" cy="238" rx="91" ry="108" fill="#dfa987"/>
+                                    <ellipse cx="200" cy="233" rx="91" ry="108" fill="#e2b493" stroke="#49382f" stroke-width="4"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa" style="--dx:22;--dy:14;--z:4">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <ellipse cx="148" cy="270" rx="15" ry="9" fill="#df8b84" opacity=".55"/>
+                                    <ellipse cx="252" cy="270" rx="15" ry="9" fill="#df8b84" opacity=".55"/>
+                                    <path d="M182 294 Q200 308 218 294" fill="none" stroke="#8e554d" stroke-width="4" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa retrato-parpadeo" style="--dx:22;--dy:14;--z:5">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <ellipse cx="164" cy="226" rx="18" ry="13" fill="#fffdf8" stroke="#49382f" stroke-width="3"/>
+                                    <ellipse cx="236" cy="226" rx="18" ry="13" fill="#fffdf8" stroke="#49382f" stroke-width="3"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa retrato-parpadeo" style="--dx:29;--dy:19;--z:6">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <ellipse cx="164" cy="226" rx="8" ry="10" fill="#593b2c"/>
+                                    <ellipse cx="236" cy="226" rx="8" ry="10" fill="#593b2c"/>
+                                    <circle cx="166" cy="223" r="2.5" fill="#fffdf8"/>
+                                    <circle cx="238" cy="223" r="2.5" fill="#fffdf8"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa" style="--dx:24;--dy:22;--z:7">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <path d="M146 202 Q164 193 181 202 M219 202 Q236 193 254 202" fill="none" stroke="#49332d" stroke-width="5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa" style="--dx:31;--dy:18;--z:8">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <path d="M201 235 C194 253 192 265 205 267" fill="none" stroke="#a96d57" stroke-width="3.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="retrato-capa" style="--dx:16;--dy:10;--z:10">
+                                <svg viewBox="0 0 400 440" aria-hidden="true">
+                                    <path d="M110 211 C88 181 100 146 128 141 C111 110 137 82 166 96 C175 64 211 57 229 84 C255 62 287 81 280 111 C311 112 320 147 294 166 C313 190 298 220 273 224 C259 199 247 180 230 170 C212 194 185 202 160 186 C148 208 129 220 110 211Z" fill="#382b26" stroke="#49382f" stroke-width="4" stroke-linejoin="round"/>
+                                    <path d="M142 170c-11-7-7-22 5-24 12-2 19 11 11 19m44-35c-8-10-1-23 11-22 11 1 16 15 7 21m39-1c-3-12 9-21 19-15 10 6 7 19-4 23m34 25c7-10 20-8 23 3 3 11-9 19-18 13" fill="none" stroke="#69493b" stroke-width="5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="retrato-pie">Noa Juarez, a los nueve años · Ilustración en capas</p>
+            </div>
+            <div class="historia-texto">
+                <p class="ceja">La nariz detrás de NOA</p>
+                <h2 id="titulo-noa">Una vida entera<br>buscando <em>la luz.</em></h2>
+                <p class="nombre-fundadora">Noa Juarez <span>· Perfumista y fundadora</span></p>
+                <p>Nacida en Granada, Noa creció entre los jardines del Generalife y el aroma de las flores de su infancia. Tras formarse en química aromática en Grasse y trabajar durante más de una década entre París y Madrid, regresó a casa con una idea sencilla: crear perfumes que olieran a los lugares que uno nunca quiere olvidar.</p>
+                <p>En su pequeño atelier madrileño, cada fórmula madura despacio. Noa selecciona personalmente sus materias primas y compone cada acorde a mano, siguiendo la tradición artesana española con una mirada contemporánea.</p>
+                <a class="enlace-discreto" href="#reserva">Conoce su universo <span aria-hidden="true">→</span></a>
+            </div>
+        </section>
+
+        <section class="reserva seccion" id="reserva" aria-labelledby="titulo-reserva">
+            <div class="reserva-intro">
+                <p class="ceja ceja-oscura">Una experiencia para ti</p>
+                <h2 id="titulo-reserva">Encuentra tu<br><em>firma olfativa.</em></h2>
+                <p>Reserva una consulta personal con Noa o solicita tu fragancia favorita. Te acompañaremos a descubrir la esencia que habla de ti.</p>
+                <div class="reserva-detalle"><span>01</span><p>Atención personal<br><small>En nuestro atelier o a distancia</small></p></div>
+                <div class="reserva-detalle"><span>02</span><p>Un detalle especial<br><small>Muestras seleccionadas para ti</small></p></div>
+            </div>
+            <form class="formulario-reserva" id="formulario-reserva">
+                <label for="nombre-reserva">Tu nombre</label>
+                <input id="nombre-reserva" name="nombre" type="text" autocomplete="name" placeholder="Nombre y apellidos" required>
+                <label for="email-reserva">Correo electrónico</label>
+                <input id="email-reserva" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required>
+                <label for="perfume-reserva">¿Qué te gustaría reservar?</label>
+                <select id="perfume-reserva" name="perfume" required>
+                    <option value="">Elige una fragancia</option>
+                </select>
+                <label for="tamano-reserva">Tamaño</label>
+                <select id="tamano-reserva" name="tamano" required>
+                    <option value="30">30 ml</option>
+                    <option value="50">50 ml</option>
+                    <option value="100">100 ml</option>
+                </select>
+                <button class="boton boton-oscuro" type="submit">Solicitar reserva <span aria-hidden="true">↗</span></button>
+                <p class="aviso-reserva" id="aviso-reserva" role="status">Demostración: tus datos no se envían ni se guardan.</p>
+            </form>
+        </section>
+
+        <section class="nota-final" aria-label="Filosofía NOA">
+            <p>«El perfume es la forma más intensa<br>de viajar sin moverse.»</p>
+            <span>NOA VALDÉS</span>
+        </section>
     </main>
 
-    <footer>
-        <p>Perfumes Noa · Tu esencia, tu estilo.</p>
+    <footer class="pie">
+        <div class="pie-marca">
+            <a class="logotipo logotipo-pie" href="#inicio">NOA<span>PARFUMS</span></a>
+            <p>El arte de permanecer.</p>
+        </div>
+        <div class="pie-columna">
+            <h2>Visítanos</h2>
+            <p>Atelier NOA · Paseo de los Aromas, 18<br>Malasaña, 28004 Madrid</p>
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=Paseo+de+los+Aromas+18%2C+Madrid" target="_blank" rel="noopener noreferrer">Abrir en Google Maps ↗</a>
+        </div>
+        <div class="pie-columna">
+            <h2>Hablemos</h2>
+            <a href="mailto:hola@noaparfums.example">hola@noaparfums.example</a>
+            <a href="mailto:reservas@noaparfums.example">Reservas y consultas</a>
+        </div>
+        <div class="pie-columna pie-redes">
+            <h2>Síguenos</h2>
+            <a href="https://www.instagram.com/noa.parfums/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+            <a href="https://www.pinterest.com/noaparfums/" target="_blank" rel="noopener noreferrer">Pinterest ↗</a>
+        </div>
+        <div class="pie-legal">
+            <span>© NOA Parfums · Proyecto ficticio de demostración.</span>
+            <span>Dirección, marca, persona y datos de contacto ficticios.</span>
+        </div>
     </footer>
+
+    <div class="velo-carrito" id="velo-carrito" hidden></div>
+    <aside id="cart" class="carrito-panel" aria-labelledby="titulo-carrito" aria-hidden="true">
+        <div class="carrito-cabecera">
+            <div><p class="ceja ceja-oscura">Tu selección</p><h2 id="titulo-carrito">La cesta</h2></div>
+            <button class="cerrar-carrito" id="cerrar-carrito" type="button" aria-label="Cerrar cesta">×</button>
+        </div>
+        <div id="cart-items" class="carrito-items"></div>
+        <div class="carrito-vacio" id="carrito-vacio">Tu cesta está esperando<br>su primera historia.</div>
+        <div class="carrito-pie">
+            <div id="cart-total">Total <strong>0,00 €</strong></div>
+            <a class="boton boton-oscuro" href="#reserva" id="enlace-reserva-carrito">Solicitar reserva <span aria-hidden="true">↗</span></a>
+            <p>La compra y la reserva son demostrativas.</p>
+        </div>
+    </aside>
+
     <script src="js/funciones.js"></script>
 </body>
 </html>
