@@ -1,3 +1,7 @@
+
+// datos de entarda
+
+
 const producutos = [
       {id :1, nombre: "Esencia Noa 01" , descripcion: "aroma fresco almizclado y amaderado", imagen: "perfume1.avif", precio: 29.90},
       {id :2, nombre: "Esencia Noa 02" , descripcion: "aroma fresco almizclado y amaderado", imagen: "perfume2.avif", precio: 34.90},
@@ -12,6 +16,8 @@ const producutos = [
       
 ]
 
+
+// elementos del dom - document objet model
 const productosContainer = document.getElementById("products") //contenedor donde se van a mostrar los productos
 const itemsCarrito = document.getElementById("cart-items") //contenedor donde se muestran las lineas del carrito
 const mostrarCarrito = document.getElementById("toggle-cart") //icono para mostar u  ocultar el carrito
@@ -22,10 +28,16 @@ const contador = document.getElementById("contador") //para mostrar cuantos arti
 
 
 // array para guardar los productos del carrito
-let carritoProductos = []
-let numeroProductos = 0
+let carritoProductos =  JSON.parse(localStorage.getItem("carritoProductos")) || []
 
-//funcion para mostrar los productos
+
+
+// variable para contar el numero de productos en el carrito
+let numeroProductos =  parseInt(localStorage.getItem("numeroProductos")) || 0
+
+actualizarCarrito()
+
+//funcion para mostrar los productos en pantalla
 function mostrarProductos(){
     productosContainer.innerHTML = producutos.map((producto) => 
         `
@@ -44,6 +56,16 @@ function mostrarProductos(){
     })
 
 }
+
+
+ // funcion para actualizar el carrito
+function actualizarLocalStorage(){
+  localStorage.setItem("carritoProductos", JSON.stringify(carritoProductos))
+        localStorage.setItem("numeroProductos", numeroProductos)
+   
+}
+
+// funcion para añadir al carrito
 function addCarrito(e){
     console.log(e.target.getAttribute("data-id"))
     const productoId = parseFloat(e.target.getAttribute("data-id"))
@@ -64,15 +86,15 @@ function addCarrito(e){
          productoCarrito.cantidad = 1
          carritoProductos.push(productoCarrito)
          }
-    numeroProductos++
-         
-    
-        actualizarCarrito()
+     
+         numeroProductos++
+        actualizarLocalStorage()
+         actualizarCarrito()
 
 
    }
 
-
+// funcion para mostar los productos en pantalla
     function actualizarCarrito(){
         itemsCarrito.innerHTML = carritoProductos.map((item) =>
        `
@@ -114,7 +136,7 @@ function addCarrito(e){
     
 
     }
-
+    // funcion para sumar un producto al carrito
     function sumarProducto(e){
         const productoId = parseFloat(e.target.getAttribute("data-id"))
         // busco la linea de carrito correspondiente
@@ -122,10 +144,14 @@ function addCarrito(e){
         console.log (lineaCarrito)
         lineaCarrito.cantidad = lineaCarrito.cantidad + 1
 
-         numeroProductos++
-        actualizarCarrito()
-        }
 
+         numeroProductos++
+         actualizarLocalStorage()
+         actualizarCarrito()
+
+
+        }
+// funcion para restar un producto al carrito
     function restarProducto(e){
         const productoId = parseFloat(e.target.getAttribute("data-id"))
         // busco la linea de carrito correspondiente
@@ -137,10 +163,11 @@ function addCarrito(e){
         }else{
            lineaCarrito.cantidad = lineaCarrito.cantidad - 1
         }
-        numeroProductos--
-        actualizarCarrito()
+         numeroProductos--
+         actualizarLocalStorage()
+         actualizarCarrito()
         }
-
+// funcion para mostrar u ocultar el carrito
         mostrarCarrito.addEventListener("click", () => {
             console.log("hola")
             carrito.classList.toggle("open")
